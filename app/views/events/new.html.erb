@@ -1,0 +1,50 @@
+<% provide(:title, 'Create new event!') %>
+
+
+<div class="jumbotron">
+  <h1>New event!</h1>
+</div>
+
+
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+
+    <h1>Event details</h1>
+
+
+    <%= form_for @event do |f| %>
+      <%= render partial: 'shared/error_messages', locals: { object: @event } %>
+
+      <div class="form-group">
+        <%= f.label :name, "Event Name" %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :date %>
+        <%= f.date_select :date, :order => [:month, :day, :year] %>
+      </div>
+
+      <h3>Add your first item</h3>
+
+      <%= f.fields_for :items do |f| %>
+        <div class="form-group">
+          <%= f.label :name, "Item Name" %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :url %>
+          <%= f.text_field :url, class: 'form-control' %>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.submit "Create event!", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+
+  </div>
+</div>
+

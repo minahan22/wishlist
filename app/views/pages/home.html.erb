@@ -1,0 +1,138 @@
+<% provide(:title, 'Welcome!') %>
+
+
+<div class="jumbotron">
+  <h1>Awesome wishlist site!</h1>
+</div>
+
+
+
+
+
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+
+	<% if current_user %>
+
+		<p>I'm signed in as <%= current_user.first_name %>!</p>
+
+
+
+		<% if @events.blank? %>
+			<p>You don't have any events. Create one today!</p>
+
+			
+		
+
+		<% else %>
+
+			<% @events.each do |event|  %>
+				<h4><%= event.name %> | <%= event.date.strftime("%-m/%-d/%Y") %></h4>
+
+				<% if event.date > Time.now() %>
+					<h6><%= time_ago_in_words event.date %> left!</h6>
+				<% else %>
+					<h6>This event passed already :(((((</h6>
+				<% end %>
+
+				<% if event.items.blank? %>
+					<p>This event has no items... :((((((</p>
+				<% else %>
+
+					<% event.items.each do |item|  %>
+						<p>
+							<span style="margin-right:15px;"><%= link_to item.name, item.url, target: :_blank %> </span>
+							<% if item.purchased? %>
+								got it!
+							<% else %>
+								need it... ;)
+							<% end %>
+						</p>
+					<% end %>
+
+				<% end %>
+
+				<br/><br/>
+			<% end %>
+
+		<% end %>
+
+		<%= link_to "Create new event", new_event_path, class: "btn btn-primary" %>
+		
+
+
+
+	<% end %>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+<% if false %>
+
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+
+
+  	<h1>Sign up</h1>
+
+    <%= form_for @user do |f| %>
+      <%= render partial: 'shared/error_messages', locals: { object: @user } %>
+
+      <div class="form-group">
+	      <%= f.label :first_name %>
+	      <%= f.text_field :first_name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+	      <%= f.label :email %>
+	      <%= f.text_field :email, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+	      <%= f.label :password %>
+	      <%= f.password_field :password, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+	      <%= f.label :password_confirmation, "Confirmation" %>
+	      <%= f.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+      	<%= f.submit "Sign up!", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+
+<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputFile">File input</label>
+    <input type="file" id="exampleInputFile">
+    <p class="help-block">Example block-level help text here.</p>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> Check me out
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+
+
+<% end %>
