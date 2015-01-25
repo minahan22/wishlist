@@ -2,6 +2,7 @@ class EventsController < ApplicationController
  
   before_filter :authenticate_user!, except: [:show, :index]
 
+
    def show
    	@event = Event.find(params[:id])
    end
@@ -21,10 +22,15 @@ class EventsController < ApplicationController
     # @event = current_user.events.build(event_params)
     # p @event.inspect
     # p @event.items.inspect
-    p params
-    p event_params
-    flash[:notice] = "testing"
-    redirect_to new_event_path and return
+
+    #Begin -Not allowing to save to dev, used for testing purposes
+    
+    #p params
+    #p event_params
+    #flash[:notice] = "testing"
+    #redirect_to new_event_path and return
+#end
+
 
     # {"name"=>"birthday", "date(2i)"=>"1", "date(3i)"=>"8", "date(1i)"=>"2017", "items_attributes"=>{"0"=>{"name"=>"phone", "url"=>"phone.com"}}}
     # item = @event.items.build(event_params['items_attributes']['0'])

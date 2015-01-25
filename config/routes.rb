@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
+
   devise_for :users, :controllers => { :registrations => "registrations" }
   resources :users
   resources :events

@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails',                '4.2.0.rc3'
 gem 'bootstrap-sass',       '3.2.0.0'
 gem 'bcrypt',               '3.1.7'
+gem 'sqlite3'
 # Use sqlite3 as the database for Active Record
   
 
@@ -38,10 +39,11 @@ gem 'devise'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'hirb'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
  gem 'byebug',      '3.4.0'
- gem 'sqlite3'
+
 
 
 # Use SCSS for stylesheets

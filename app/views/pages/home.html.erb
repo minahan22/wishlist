@@ -1,30 +1,29 @@
 <% provide(:title, 'Welcome!') %>
 
-
+<%= form_tag users_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search For Friends/Family", :name => nil %>
+  </p>
+<% end %>		
 <div class="jumbotron">
   <h1>Awesome wishlist site!</h1>
 </div>
-
-
-
-
+        
 
 <div class="row">
   <div class="col-sm-6 col-sm-offset-3">
 
 	<% if current_user %>
 
-		<p>I'm signed in as <%= current_user.first_name %>!</p>
-
-
-
+		<p> Hello  <%= current_user.first_name %>!</p>
+		
 		<% if @events.blank? %>
 			<p>You don't have any events. Create one today!</p>
 
-			
-		
 
 		<% else %>
+
 
 			<% @events.each do |event|  %>
 				<h4><%= event.name %> | <%= event.date.strftime("%-m/%-d/%Y") %></h4>
@@ -42,8 +41,8 @@
 					<% event.items.each do |item|  %>
 						<p>
 							<span style="margin-right:15px;"><%= link_to item.name, item.url, target: :_blank %> </span>
-							<% if item.purchased? %>
-								got it!
+							 <% if item.purchased.blank? %>
+							    done
 							<% else %>
 								need it... ;)
 							<% end %>
@@ -55,9 +54,13 @@
 				<br/><br/>
 			<% end %>
 
+	
+
 		<% end %>
 
-		<%= link_to "Create new event", new_event_path, class: "btn btn-primary" %>
+		
+
+		<%= link_to "Create new event", new_event_path, class: "btn btn-primary" %><br/><br/>
 		
 
 
@@ -66,11 +69,6 @@
 
   </div>
 </div>
-
-
-
-
-
 
 
 <% if false %>
