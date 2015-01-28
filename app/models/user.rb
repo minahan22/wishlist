@@ -26,15 +26,16 @@ DEVISE
                     uniqueness: { case_sensitive: false }
 
 	has_many :events
- 
+ accepts_nested_attributes_for :events
 
 #Fun with condition - Episode 15 and Episode 37 - Simple Search
 #http://stackoverflow.com/questions/25777318/couldnt-find-listing-with-id-all-search-form
-def self.search(search)
+def User.search(search)
   if search
-    self.where("first_name like ?", "%#{search}%")
+p search
+    User.where("first_name like ?", "%#{search}%")
   else
-    self.all
+    User.all
   end
 end
 

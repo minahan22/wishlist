@@ -1,4 +1,53 @@
-<h1> Events For <%=u@user.first_name%>  </h1>
+<% @user.each do |user| %>
+
+		<h1> List for <%= user.first_name %>! <%= user.id %></h1>
+
+		<% if @event.blank? %>
+			<p>You don't have any events. Create one today!</p>
+
+
+		<% else %>
+        
+
+         <% @event.each do |event|  %>
+	  			<h4><%= event.user_id %>
+				<%= event.name %> | <%= event.date.strftime("%-m/%-d/%Y") %></h4>
+
+
+
+				<% if event.date > Time.now() %>
+					<h6><%= time_ago_in_words event.date %> left!</h6>
+				<% else %>
+					<h6>This event passed already :(((((</h6>
+				<% end %>
+
+				<% if event.items.blank? %>
+					<p>This event has no items... :((((((</p>
+				<% else %>
+
+					<% event.items.each do |item|  %>
+						<p>
+							<span style="margin-right:15px;"><%= link_to item.name, item.url, target: :_blank %> </span>
+							 <% if item.purchased.blank? %>
+							    Not Yet Purchased
+							<% else %>
+								Purchased!
+							<% end %>
+
+						</p>
+						<p><%= link_to "Delete", "#" %> |
+<%= link_to 'Edit', "#"  %> |</p>
+					<% end %>
+
+				<% end %>
+
+				<br/><br/>
+		
+		<% end %>
+<% end %>
+		
+<% end %>
+
 
 
 

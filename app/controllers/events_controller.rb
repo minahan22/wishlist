@@ -1,8 +1,12 @@
 class EventsController < ApplicationController
  
   before_filter :authenticate_user!, except: [:show, :index]
+def index
+  @event = Event.all
+  @item = Item.all
+  @item_statuses = ItemStatus.all
 
-
+end
    def show
    	@event = Event.find(params[:id])
    end
@@ -59,7 +63,9 @@ class EventsController < ApplicationController
   private
 
     def event_params
-      params.require(:event).permit(:name, :date, items_attributes: [:id, :name, :url] )
+      params.require(:event).permit(:name, :date,
+       items_attributes:[:id, :name, :url, :status_id, :purchased], 
+       item_statuses_attributes:   [:id, :name, :description])
     end
 
 end

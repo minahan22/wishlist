@@ -1,6 +1,5 @@
 <% provide(:title, 'Create new event!') %>
 
-
 <div class="jumbotron">
   <h1>New event!</h1>
 </div>
@@ -10,8 +9,6 @@
   <div class="col-sm-6 col-sm-offset-3">
 
     <h1>Event details</h1>
-
-
     <%= form_for @event do |f| %>
       <%= render partial: 'shared/error_messages', locals: { object: @event } %>
 
@@ -37,7 +34,19 @@
           <%= f.label :url %>
           <%= f.text_field :url, class: 'form-control' %>
         </div>
+
+        <div class="form-group">
+          <% f.label :status_id %>
+          <% f.text_field :status_id, :value => "1", class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <% f.label :purchased %>
+          <% f.text_field :purchased, :value => "Open", class: 'form-control' %>
+        </div>
+
       <% end %>
+
 
       <div class="form-group">
         <%= f.submit "Create event!", class: "btn btn-primary" %>
