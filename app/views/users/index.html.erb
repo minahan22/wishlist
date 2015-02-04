@@ -1,24 +1,24 @@
+
 <% @user.each do |user| %>
 
-		<h1> List for <%= user.first_name %>! <%= user.id %></h1>
+		<h1> List for <%= user.first_name %>!</h1>
 
-		<% if @event.blank? %>
+		<% if user.events.blank? %>
 			<p>You don't have any events. Create one today!</p>
 
 
 		<% else %>
         
 
-         <% @event.each do |event|  %>
-	  			<h4><%= event.user_id %>
+         <% user.events.each do |event|  %>
+	  			<h4>
+	  				
 				<%= event.name %> | <%= event.date.strftime("%-m/%-d/%Y") %></h4>
 
-
-
 				<% if event.date > Time.now() %>
-					<h6><%= time_ago_in_words event.date %> left!</h6>
+					<h6><%= time_ago_in_words event.date %> Left!</h6>
 				<% else %>
-					<h6>This event passed already :(((((</h6>
+					<h6>Event Passed</h6>
 				<% end %>
 
 				<% if event.items.blank? %>
@@ -28,28 +28,36 @@
 					<% event.items.each do |item|  %>
 						<p>
 							<span style="margin-right:15px;"><%= link_to item.name, item.url, target: :_blank %> </span>
-							 <% if item.purchased.blank? %>
-							    Not Yet Purchased
+							 <% if item.purchased == true %>
+							    Purchased!
 							<% else %>
-								Purchased!
+								Not Purchased Yet
 							<% end %>
+                         </p>
+	
 
-						</p>
-						<p><%= link_to "Delete", "#" %> |
-<%= link_to 'Edit', "#"  %> |</p>
-					<% end %>
+<%= form_for item, url: purchased_item_path(item), method: 'post' do |f| %>
+     <%= f.hidden_field :status_id, :value => "2", class: 'form-control' %>
+     <%= f.hidden_field :purchased, :value => true, class: 'form-control' %> 
+   
+	<div class="form-group">
+		<%= f.submit "Purchased", class: "btn btn-primary" %>
+	</div>
+<% end %>
 
+		  <% end %>
 				<% end %>
-
 				<br/><br/>
-		
+				     <%end %>		
 		<% end %>
 <% end %>
 		
+
+
+<% if false %>
+	<%= form_for item, url: purchased_item_path(item), method: 'post' do |f| %>
+	<% end %>
 <% end %>
-
-
-
 
 
 

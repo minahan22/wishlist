@@ -41,30 +41,28 @@
 					<% event.items.each do |item|  %>
 						<p>
 							<span style="margin-right:15px;"><%= link_to item.name, item.url, target: :_blank %> </span>
-							 <% if item.purchased.blank? %>
-							    done
+							 <% if item.purchased == true %>
+							    Purchased
 							<% else %>
-								need it... ;)
-							<% end %>
-						</p>
+								Not Yet Purchased
+							<% end %><br/><br/>
+						
+<%= link_to "Edit", edit_event_path(event) %>
+    | <%= link_to "Destroy", event_path(event), :method => :delete %></p>
+
+ <% end %>	
+				<% end %>
+				<br/><br/>
 					<% end %>
 
 				<% end %>
 
 				<br/><br/>
-			<% end %>
-
-	
-
-		<% end %>
-
 		
+
 
 		<%= link_to "Create new event", new_event_path, class: "btn btn-primary" %><br/><br/>
 		
-
-
-
 	<% end %>
 
   </div>

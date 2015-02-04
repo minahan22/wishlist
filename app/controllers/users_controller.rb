@@ -3,7 +3,8 @@ class UsersController < ApplicationController
    def index
     @user = User.search(params[:search])
     p params[:search]
-    @event = current_user.events
+    # @event = @user.events
+    session[:first_name] << @users.to_param
 
     
    end
@@ -11,13 +12,25 @@ class UsersController < ApplicationController
 def show
     @user = User.find(params[:id])
     p params[:id]
-    @event = Event.find(params[:id])
+    # @event = Event.find(params[:id])
      
    end
-   
+
+
+   def update
+    p "params output"
+    p params
+    session[:first_name] << @users.to_param
+    flash[:notice] = "testing redirect"
+    #redirect_to authenticated_root_path
+    redirect_to user_index_path
+   end
+
 
   def new
   	@user = User.new
+    @event.items.build
+   
   end
    
   
@@ -54,8 +67,12 @@ def show
       params.require(:user).permit(:first_name, :last_name, :email, 
         :password, :password_confirmation, :search,
         events_attributes: [:id,:name, :date],
-        item_statuses: [:id, :name, :description])
+        item_statuses: [:id, :name, :description],
+        items_attributes:[:id, :name, :url, :status_id, :purchased], )
     end
+
+
+
 
 
 end

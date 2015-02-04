@@ -15,6 +15,7 @@ end
   def new
   	@event = Event.new
     @event.items.build
+    @open_status_id = ItemStatus.find_by(name: "Open").id
   end
    
   
@@ -56,8 +57,39 @@ end
      end
   end
 
+#Edit button from home pages
+   def update
+    @event = Event.find(params[:id])
+    if @event.update_attributes(event_params)
+      flash[:success] = "Event updated"
+      #redirect_to users_path
+      redirect_to authenticated_root_path
+    else
+      render 'edit'
+    end
+  end
+
+ ## def purchased
+   # p "params output"
+   # p params
+   # flash[:notice] = "testing new custom route"
+   # redirect_to users_path
+   #end
+
+   def edit
+    @event = Event.find(params[:id])
+
+  end
+
 
   def destroy
+    @event = Event.find(params[:id])
+     if @event.destroy
+       flash[:success] = "Success!"
+       redirect_to users_path
+     else
+       render 'edit'
+     end
   end
 
   private

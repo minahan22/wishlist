@@ -59,7 +59,15 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations" }
   resources :users
   resources :events
-  resources :items
+  
+  resources :items do 
+    member do 
+      post 'purchased'
+    end
+  end
+
+
+
 
 
   # http://stackoverflow.com/a/22070897
