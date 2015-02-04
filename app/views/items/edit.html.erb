@@ -1,0 +1,41 @@
+<% provide(:title, "Edit event") %>
+<h1>Update your profile</h1>
+
+<%= form_for @event do |f| %>
+      <%= render partial: 'shared/error_messages', locals: { object: @event } %>
+
+      <div class="form-group">
+        <%= f.label :name, :value => event.name "Event Name" %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :date, value => event.date %>
+        <%= f.date_select :date, :order => [:month, :day, :year] %>
+      </div>
+
+      <h3>Update item</h3>
+
+      <%= f.fields_for :items do |f| %>
+        <div class="form-group">
+          <%= f.label :name, :value => items.name "Item Name" %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :url, :value => items.url %>
+          <%= f.text_field :url, class: 'form-control' %>
+        </div>
+
+         <%= f.hidden_field :status_id, :value => @open_status_id, class: 'form-control' %>
+        <%= f.hidden_field :purchased, :value => false, class: 'form-control' %>
+
+
+
+      <% end %>
+
+
+      <div class="form-group">
+        <%= f.submit "Save Changes", class: "btn btn-primary" %>
+      </div>
+    <% end %>
