@@ -11,7 +11,6 @@ class ItemsController < ApplicationController
 
    def purchased
     @item = Item.find(params[:id])
-    session[:user] << @item.id
     if @item.update_attributes(item_params)
       flash[:success] = "Item Purchased"
       redirect_to users_path

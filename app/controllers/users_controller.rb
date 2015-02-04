@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     @user = User.search(params[:search])
     p params[:search]
     # @event = @user.events
-    session[:first_name] << @users.to_param
+
 
     
    end

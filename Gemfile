@@ -62,4 +62,9 @@ group :production do
   gem 'pg',             '0.17.1'
   gem 'rails_12factor', '0.0.2'
 end
-
+# Need to push into heroku after changes are made to deploy
+#$ bundle install
+#$ git add .
+#$ git commit -a -m "SQLite3"
+#$ git push heroku master
+# http://stackoverflow.com/questions/23236536/rails-4-removed-sqlite3-gem-detected-sqlite3-gem-which-is-not-supported-on
