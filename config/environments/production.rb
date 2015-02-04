@@ -28,7 +28,13 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  
+  
+  # 02/03/15 - change to true to fix difference from production
+  # http://stackoverflow.com/questions/17332822/heroku-production-differing-from-local-development-rails
+config.assets.compile = true
+
+
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.

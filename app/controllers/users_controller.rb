@@ -4,9 +4,6 @@ class UsersController < ApplicationController
     @user = User.search(params[:search])
     p params[:search]
     # @event = @user.events
-
-
-    
    end
 
 def show
