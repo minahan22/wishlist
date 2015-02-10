@@ -3,7 +3,15 @@ class PagesController < ApplicationController
 
    def home
    	@events = current_user.events
+     @items = Item.where(:purchased_by => current_user.email)
    end
+
+   def show
+   
+    #02/04- Micropost
+    p params
+   # @microposts = current_user.microposts.page(params[:page])
+  end
 
 def destroy
     @events = Event.find(params[:id])

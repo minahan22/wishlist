@@ -1,23 +1,43 @@
 class UsersController < ApplicationController
 
    def index
-    @user = User.search(params[:search])
-    p params[:search]
+    #session[:search] = params[:search] if params[:search].present?
+    #@find = (session[:search])
+    #session[:search] = @find.
+
+    #session[:search] = User.search(params[:search])
+
+  session[:search] = User.search(params[:search])
+     if params[:search].present?
+       p session[:search]
+       @user = session[:search]
+       p @user
+   if @user.blank?
+        flash[:notice] = "No Users Found"
+    else
+        flash[:notice] =  "Found #{@user.count} Family/Friend"
+     end
+end
+
+     #@user = User.find(session[:id])
+    #session[:first_name] = @user
+    #if @user = nil
+
+ # p session[:first_name]
     # @event = @user.events
    end
 
 def show
     @user = User.find(params[:id])
+    
     p params[:id]
     # @event = Event.find(params[:id])
-     
    end
-
 
    def update
     p "params output"
     p params
-    session[:first_name] << @users.to_param
+   # session[:first_name] << @users.to_param
     flash[:notice] = "testing redirect"
     #redirect_to authenticated_root_path
     redirect_to user_index_path
@@ -65,7 +85,7 @@ def show
         :password, :password_confirmation, :search,
         events_attributes: [:id,:name, :date],
         item_statuses: [:id, :name, :description],
-        items_attributes:[:id, :name, :url, :status_id, :purchased], )
+        items_attributes:[:id, :name, :url, :status_id, :purchased, :purchased_by], )
     end
 
 

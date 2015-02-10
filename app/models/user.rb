@@ -25,19 +25,48 @@ DEVISE
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
-	has_many :events
- accepts_nested_attributes_for :events
-
+  has_many :events
+  accepts_nested_attributes_for :events
+  has_many :microposts, dependent: :destroy
+  #Chapter 11 - User Follower
+  has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
+has_many :passive_relationships, class_name:  "Relationship",
+ foreign_key: "followed_id",
+dependent:   :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+  
 #Fun with condition - Episode 15 and Episode 37 - Simple Search
 #http://stackoverflow.com/questions/25777318/couldnt-find-listing-with-id-all-search-form
-def User.search(search)
+def self.search(search)
   if search
 p search
     User.where("first_name like ?", "%#{search}%")
   else
-    User.all
+    User.all 
+    #- railscast 240 return a array of records which will perform the query
+    # instead want to return a
+    #  scope to add more calls to it later on ..so it doesn't perform the acutal query
+    #scoped
   end
 end
+
+# Follows a user - Chapter 11
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
+
+  # Unfollows a user.
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  # Returns true if the current user is following the other user.
+  def following?(other_user)
+    following.include?(other_user)
+  end
 
 end
 

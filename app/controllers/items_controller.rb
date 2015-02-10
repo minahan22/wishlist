@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-
+ def Index
+   @user = User.find(session[:search])
+end 
 
    def update
     p "params output"
@@ -10,10 +12,10 @@ class ItemsController < ApplicationController
    end
 
    def purchased
-    @item = Item.find(params[:id])
+   @item = Item.find(params[:id])
     if @item.update_attributes(item_params)
       flash[:success] = "Item Purchased"
-      redirect_to users_path
+      redirect_to users_path(search: session[:search])
     else
       render 'edit'
     end
@@ -32,6 +34,6 @@ class ItemsController < ApplicationController
 
   def item_params 
 
-params.require(:item).permit(:id, :name, :url, :status_id, :purchased)
+params.require(:item).permit(:id, :name, :url, :status_id, :purchased, :Purchased_By)
 end
 end

@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations" }
   resources :users
   resources :events
-  
+  resources :microposts,          only: [:create, :destroy]
   resources :items do 
     member do 
       post 'purchased'

@@ -96,7 +96,7 @@ end
 
     def event_params
       params.require(:event).permit(:name, :date,
-       items_attributes:[:id, :name, :url, :status_id, :purchased], 
+       items_attributes:[:id, :name, :url, :status_id, :purchased, :purchased_by], 
        item_statuses_attributes:   [:id, :name, :description])
     end
 

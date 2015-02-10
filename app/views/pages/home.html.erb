@@ -1,15 +1,16 @@
-<% provide(:title, 'Welcome!') %>
-
-<%= form_tag users_path, :method => 'get' do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search For Friends/Family", :name => nil %>
-  </p>
-<% end %>		
 <div class="jumbotron">
   <h1>Awesome wishlist site!</h1>
 </div>
         
+     <h4>
+    <%= gravatar_for current_user %>
+     <%= current_user.first_name %>
+      </h4>
+ 
+    <% if current_user.microposts.any? %>
+      <p>Microposts (<%= current_user.microposts.count %>)</p>
+  
+  <% end %>
 
 <div class="row">
   <div class="col-sm-6 col-sm-offset-3">
@@ -17,10 +18,11 @@
 	<% if current_user %>
 
 		<p> Hello  <%= current_user.first_name %>!</p>
-		
-		<% if @events.blank? %>
-			<p>You don't have any events. Create one today!</p>
+ <h2>
 
+
+		<% if @events.blank? %>
+    <p>You don't have any events. Create one today!</p>
 
 		<% else %>
 
@@ -31,7 +33,7 @@
 				<% if event.date > Time.now() %>
 					<h6><%= time_ago_in_words event.date %> left!</h6>
 				<% else %>
-					<h6>This event passed already :(((((</h6>
+					<h6>Event Passed</h6>
 				<% end %>
 
 				<% if event.items.blank? %>
@@ -42,12 +44,13 @@
 						<p>
 							<span style="margin-right:15px;"><%= link_to item.name, item.url, target: :_blank %> </span>
 							 <% if item.purchased == true %>
-							    Purchased
+							 Purchased
 							<% else %>
-								Not Yet Purchased
+							 Not Yet Purchased 
 							<% end %><br/><br/>
-						
-<%= link_to "Edit", edit_event_path(event) %>
+
+		 <%= link_to "Create Another Item", '#'%> 			
+    | <%= link_to "Edit", edit_event_path(event) %>
     | <%= link_to "Destroy", event_path(event), :method => :delete %></p>
 
  <% end %>	
@@ -59,17 +62,25 @@
 
 				<br/><br/>
 		
-
-
 		<%= link_to "Create new event", new_event_path, class: "btn btn-primary" %><br/><br/>
-		
-	<% end %>
-
+		 <% end %> 
+  
   </div>
 </div>
 
+<p> Items Purchased for Friends </p>
+<% if @items.blank? %>
+<p> Have not purchased any items for Friends/Family </p>
+
+<%else%>
+   <% @items.each do |item|%>
+     <%= item.name %> </br>
+     <% end %>
+  <% end %>
+
 
 <% if false %>
+
 
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
