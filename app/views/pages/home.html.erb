@@ -49,7 +49,7 @@
 							 Not Yet Purchased 
 							<% end %><br/><br/>
 
-		 <%= link_to "Create Another Item", '#'%> 			
+		 <%= link_to "Create Another Item", new_item_path(item)%> 			
     | <%= link_to "Edit", edit_event_path(event) %>
     | <%= link_to "Destroy", event_path(event), :method => :delete %></p>
 

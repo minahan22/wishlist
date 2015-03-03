@@ -3,5 +3,6 @@ class Item < ActiveRecord::Base
 
 	belongs_to :event
 	belongs_to :item_statuses, class_name: "ItemStatus"
+	accepts_nested_attributes_for :event
 
 end

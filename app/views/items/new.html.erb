@@ -1,0 +1,42 @@
+<% provide(:title, 'newitem') %>
+
+<div class="jumbotron">
+  <h1>Add Another Item!</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+
+    <h1>Item Details</h1>
+<% @item.each do |item| %>
+
+<%= item.event_names %>
+<%end%>
+
+
+
+    <%= form_for @item do |f| %>
+
+     <%= f.hidden_field :status_id, :value => @open_status_id, class: 'form-control' %>
+        <%= f.hidden_field :purchased, :value => false, class: 'form-control' %>
+
+
+
+        <div class="form-group">
+          <%= f.label :name, "Item Name" %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :url %>
+          <%= f.text_field :url, class: 'form-control' %>
+        </div>
+ <div class="form-group">
+        <%= f.label :id, "Event Name" %>
+        <%= f.collection_select :id, Item.all, :id,:event_id, class: 'form-control' %>
+      </div>
+     <%= f.submit "Create event!", class: "btn btn-primary" %> 
+<%end%>
+
+  </div>
+</div>

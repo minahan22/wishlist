@@ -6,11 +6,15 @@ class UsersController < ApplicationController
     #session[:search] = @find.
 
     #session[:search] = User.search(params[:search])
+  
+  #session[:search] = User.search(params[:search])
+   p session[:search]
+  session[:search] = (params[:search])
 
-  session[:search] = User.search(params[:search])
      if params[:search].present?
+      @user = User.search(session[:search])
        p session[:search]
-       @user = session[:search]
+      #@user = session[:search]
        p @user
    if @user.blank?
         flash[:notice] = "No Users Found"
