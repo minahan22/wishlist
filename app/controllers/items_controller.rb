@@ -1,22 +1,19 @@
 class ItemsController < ApplicationController
-def Index
-@item = Item.order("events.name").joins(:event).select("items.*, events.name as event_names")
+def index
+  @item = current_user.items
 end
 
-
-def show 
-  @item = Item.order("events.name").joins(:event).select("items.*, events.name as event_names")
- end
-
  def new
- @item = current_user.item.order("events.name").joins(:event).select("items.*, events.name as event_names")
- p @item
+ #@item = current_user.item.order("events.name").joins(:event).select("items.*, events.name as event_names")
+ @item = Item.new
+ 
  @open_status_id = ItemStatus.find_by(name: "Open").id
   end
    
   
   def create
-  @item = current_user.item.build(item_params)
+  @item = current_user.items.build(item_params)
+ #@item = current_user.item.build(event_id: params[:item][:event_id])
      if @item.save
        flash[:success] = "Created Item!"
        redirect_to authenticated_root_path
@@ -25,7 +22,7 @@ def show
      end
   end
 
-   def update
+   def updates
     p "params output"
     p params
     flash[:notice] = "testing redirect"
@@ -56,8 +53,8 @@ def show
   end
 
  def item_params 
-params.require(:item).permit(:id, :name, :url, :status_id, :purchased, :Purchased_By,
- events_attributes: [:id, :name, :date, :user_id])
+params.require(:item).permit(:id, :name, :url, :status_id,:event_id, :purchased,
+  events_attributes: [:id,:name, :date,:user_id])
 end
 end
 
