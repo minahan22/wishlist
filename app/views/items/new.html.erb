@@ -10,11 +10,21 @@
     <h1>Item Details</h1>
 
     <%= form_for @item do |f| %>
+
+    
 <%= render partial: 'shared/error_messages', locals: { object: @item } %>
 
      <%= f.hidden_field :status_id, :value => @open_status_id, class: 'form-control' %>
      <%= f.hidden_field :purchased, :value => false, class: 'form-control' %>
+ 
 
+ <%= f.fields_for :event_id do |f| %>
+
+     <div class="form-group">
+        <%= f.label :event_id, "Event Name" %>
+        <%= f.collection_select :event_id,Event.where(:user_id => current_user.id),:id, :name, class: 'form-control' %>
+      </div>
+          <%end%> 
 
         <div class="form-group">
           <%= f.label :name, "Item Name" %>

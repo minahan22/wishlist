@@ -12,8 +12,7 @@
     <%= form_for @event do |f| %>
       <%= render partial: 'shared/error_messages', locals: { object: @event } %>
 
-        <%= f.hidden_field :status_id, :value => @open_status_id, class: 'form-control' %>
-        <%= f.hidden_field :purchased, :value => false, class: 'form-control' %>
+      
 
       <div class="form-group">
         <%= f.label :name, "Event Name" %>
@@ -28,6 +27,9 @@
       <h3>Add your first item</h3>
 
       <%= f.fields_for :items do |f| %>
+      
+        <%= f.hidden_field :status_id, :value => @open_status_id, class: 'form-control' %>
+        <%= f.hidden_field :purchased, :value => false, class: 'form-control' %>
         <div class="form-group">
           <%= f.label :name, "Item Name" %>
           <%= f.text_field :name, class: 'form-control' %>

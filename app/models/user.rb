@@ -27,7 +27,10 @@ DEVISE
 
   has_many :events
   accepts_nested_attributes_for :events
+  has_many :items, through: :events
   has_many :microposts, dependent: :destroy
+
+  
   #Chapter 11 - User Follower
   has_many :active_relationships, class_name:  "Relationship",
                                   foreign_key: "follower_id",

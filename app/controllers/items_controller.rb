@@ -12,9 +12,11 @@ end
    
   
   def create
-  @item = current_user.items.build(item_params)
- #@item = current_user.item.build(event_id: params[:item][:event_id])
-     if @item.save
+  #@item = current_user.items.build(item_params)
+ @item = current_user.items.build(item_params)
+ #@items = @item.current_user.build(item_params)
+ #@item = current_user.items.build(event_id: params[:item][:event_id])
+     if @item.save(item_params)
        flash[:success] = "Created Item!"
        redirect_to authenticated_root_path
      else
@@ -53,8 +55,7 @@ end
   end
 
  def item_params 
-params.require(:item).permit(:id, :name, :url, :status_id,:event_id, :purchased,
-  events_attributes: [:id,:name, :date,:user_id])
+params.require(:item).permit(:id, :name, :url, :status_id, :event_id, :purchased, event_ids:[])
 end
 end
 
